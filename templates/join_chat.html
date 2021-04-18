@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Chat</title>
+</head>
+<body>
+<h2>Join a Chat</h2>
+{% with messages = get_flashed_messages() %}
+    <ul>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endwith %}
+
+<form action="/join_chat" method="post">
+    <input type="text" name="code" placeholder="ChatName#ChatID" required>
+
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>

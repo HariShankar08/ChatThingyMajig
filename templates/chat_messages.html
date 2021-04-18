@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <style>
+        #chat_area {
+            overflow: auto;
+            height: 250px;
+        };
+
+        .message {
+            box-shadow: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="chat_area">
+    {% autoescape false %}
+    {{ message_html }}
+    {% endautoescape %}
+</div>
+<input id="chat_input" type="text" placeholder="Enter your message here" required>
+<p>Invite your friends! Give them this code: {{ chat_name }}#{{ chat_id }}</p>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</script>
+<script defer>
+    {% autoescape false %}
+    const user_id = {{ session['user_id'] }};
+    const chat_id = {{ chat_id }};
+    {% endautoescape %}
+
+    document.querySelector('#chat_input').addEventListener('keyup', (e) => {
+       if (e.key === "Enter") {
+         const message = e.target.value;
+         e.target.value = "";
+         e.target.focus();
+
+           // POST this message
+        console.log({user_id, chat_id, message});
+        fetch(`/p/post_message?user_id=${user_id}&chat_id=${chat_id}&message=${message}`, {
+    method: 'POST',
+    headers: { 'Content-Type': "application/json" }
+})
+  .then(res => res.text())
+  .then(data => append_messages(data))
+  .catch(err => console.log(err));
+
+        /*
+        $.post("/p/post_message", {user_id, chat_id, message}, (result) => {
+        console.log(result); */
+       }
+    });
+
+
+    function append_messages(result) {
+        document.getElementById("chat_area").innerHTML = result.window_html;
+        $("#chat_area").animate({ scrollTop: $("#chat_area")[0].scrollHeight}, 1000);
+    }
+
+    setInterval(() => {
+        fetch(`/p/get_messages?chat_id=${chat_id}`, {method: 'GET'})
+  .then(res => res.json())
+  .then(data => append_messages(data))
+  .catch(error => console.log(error))}, 2000);
+
+</script>
+</body>
+</html>

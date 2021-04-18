@@ -1,0 +1,13 @@
+{% for message in msg %}
+    <div class="message">
+        {% if not message['announcement'] %}
+            <h5>{{ message['username'] }}</h5>
+            <hr />
+            <p>{{ message['content'] }}</p>
+        {% else %}
+            <h5>Ahoy There!</h5>
+            <hr />
+            <p>{{ message['content'] }}</p>
+        {% endif %}
+    </div>
+{% endfor %}

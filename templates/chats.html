@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chats</title>
+    <style>
+        #chat_area {
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+<h2>Chats</h2>
+
+{% with messages = get_flashed_messages() %}
+    <ul>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endwith %}
+
+<!-- Chats You're in -->
+<ul>
+{% for chat_details in chat %}
+    <li><a href="/chat/{{ chat_details['chat_id'] }}">{{ chat_details['name'] }}</a></li>
+{% endfor %}
+</ul>
+
+
+<!-- No Chats? -->
+<hr />
+<h3>No chats?</h3>
+<p><a href="/create_chat">Create One</a> or <a href="/join_chat">Join One</a></p>
+
+
+</body>
+</html>
