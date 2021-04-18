@@ -43,7 +43,6 @@
     headers: { 'Content-Type': "application/json" }
 })
   .then(res => res.text())
-  .then(data => append_messages(data))
   .catch(err => console.log(err));
 
         /*
