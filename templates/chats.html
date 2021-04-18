@@ -22,7 +22,7 @@
 
 <!-- Chats You're in -->
 <ul>
-{% for chat_details in chat %}
+{% for chat_details in chats %}
     <li><a href="/chat/{{ chat_details['chat_id'] }}">{{ chat_details['name'] }}</a></li>
 {% endfor %}
 </ul>

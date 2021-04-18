@@ -61,7 +61,7 @@
         fetch(`/p/get_messages?chat_id=${chat_id}`, {method: 'GET'})
   .then(res => res.json())
   .then(data => append_messages(data))
-  .catch(error => console.log(error))}, 2000);
+  .catch(error => console.log(error))}, 500);
 
 </script>
 </body>

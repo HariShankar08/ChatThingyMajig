@@ -49,6 +49,7 @@ def show_chats():
         r = cur.execute('SELECT chat_id, name FROM chats WHERE chat_id=(SELECT chat_id FROM messages WHERE user_id=?)',
                         (session['user_id'], ))
         chats = [{'chat_id': row[0], 'name': row[1]} for row in r.fetchall()]
+        print(chats)
     return render_template('chats.html', chats=chats)
 
 
@@ -96,7 +97,12 @@ def join_chat():
                 return redirect('/join_chat')
             
 
-
+            r = cur.execute('SELECT content FROM messages WHERE chat_id=? AND user_id=?', (chat_id, session['user_id']))
+            
+            if r.fetchall():
+                flash('You\'re already in this chat.')
+                return redirect('/chats')
+            
             cur.execute('INSERT INTO messages (chat_id, user_id, content, announcement, sent_time) VALUES (?, ?, ?, ?, ?)',
                         (chat_id, session['user_id'], 'Someone Joined! Say Hi!', 1, str(datetime.now())))
             cnx.commit()
