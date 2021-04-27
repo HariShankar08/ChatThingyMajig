@@ -4,7 +4,6 @@ from flask import Flask, render_template, request, flash, redirect, session, jso
 import sqlite3 as sql
 from datetime import datetime
 
-from flask.templating import render_template_string
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Secret'
