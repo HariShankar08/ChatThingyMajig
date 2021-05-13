@@ -1,13 +1,15 @@
 import os
 
-from flask import Flask, render_template, request, flash, redirect, session, jsonify
+from flask import Flask, render_template, request, flash, redirect, session
+
 import sqlite3 as sql
 from datetime import datetime
-
+from posts import app as posts_app
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'Secret'
+app.config['SECRET_KEY'] = 'MUCH SECRET OWO'
 
+app.register_blueprint(posts_app, url_prefix='/posts')
 
 @app.route('/')
 def index():
@@ -112,6 +114,7 @@ def join_chat():
 def setup_db():
     if os.path.exists('db.sqlite3'):
         return
+    # TODO: Make this better
     with sql.connect('db.sqlite3') as cnx:
         cur = cnx.cursor()
         cur.execute('''CREATE TABLE users (

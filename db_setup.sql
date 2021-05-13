@@ -16,3 +16,21 @@ announcement BOOL NOT NULL DEFAULT 0,
 sent_time DATETIME NOT NULL,
 FOREIGN KEY (chat_id) REFERENCES chats(chat_id) ON DELETE CASCADE,
 FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE);
+
+CREATE TABLE posts (
+  post_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
+  content VARCHAR(255) NOT NULL,
+  sent_time DATETIME NOT NULL,
+  image_url VARCHAR(255),
+  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE comments (
+  post_id INTEGER NOT NULL,
+  user_id INTEGER NOT NULL,
+  content VARCHAR(255) NOT NULL,
+  sent_time DATETIME NOT NULL,
+  FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);

@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "chatthingymajig"
+name = "repl_python3_ChatThingyMajig"
 version = "0.1.0"
 description = ""
 authors = ["HariShankar8 <<>>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-Flask = "^1.1.2"
+flask = "^1.1.2"
 
 [tool.poetry.dev-dependencies]
 

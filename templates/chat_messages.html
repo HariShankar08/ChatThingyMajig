@@ -54,7 +54,6 @@
 
     function append_messages(result) {
         document.getElementById("chat_area").innerHTML = result.window_html;
-        $("#chat_area").animate({ scrollTop: $("#chat_area")[0].scrollHeight}, 1000);
     }
 
     setInterval(() => {

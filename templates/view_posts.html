@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posts</title>
+</head>
+<body>
+  <div>
+    {% if posts %}
+      {% for post in posts %}
+        <div>
+          <h3>{{ post['username'] }}</h3>
+          <hr />
+          <p>{{ post['content'] }}</p>
+          {% if post.get('image') is not None %}
+            <img src="url({{post['image']}})" alt="There was supposed to be an image here..."/>
+          {% endif %}
+          <hr />
+          <h4>Comments</h4>
+          <ul>
+          {% for comment in post['comments'] %}
+            <li><b>{{ comment['username'] }}</b>: {{ comment['content'] }}</li>
+          {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No posts yet :(</p>
+    {% endif %}
+  </div>
+  <hr />
+  <form action="/posts/p/create_post" method="post" enctype="multipart/form-data">
+    <textarea name="content" required placeholder="What's on your mind?"/>
+    <br />
+    <p>Have an image you want to share? Add it here.</p>
+    <input type="file">
+    <button type="submit">Post</button>
+  </form>
+
+
+</body>
+</html>
